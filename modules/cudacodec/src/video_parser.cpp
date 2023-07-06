@@ -83,7 +83,7 @@ bool cv::cudacodec::detail::VideoParser::parseVideoData(const unsigned char* dat
         return false;
     }
 
-    constexpr int maxUnparsedPackets = 20;
+    constexpr int maxUnparsedPackets = 100;
 
     ++unparsedPackets_;
     if (unparsedPackets_ > maxUnparsedPackets)
