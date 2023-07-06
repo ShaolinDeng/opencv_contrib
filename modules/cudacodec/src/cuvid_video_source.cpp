@@ -76,6 +76,7 @@ cv::cudacodec::detail::CuvidVideoSource::CuvidVideoSource(const String& fname)
     format_.height = vidfmt.coded_height;
     format_.displayArea = Rect(Point(vidfmt.display_area.left, vidfmt.display_area.top), Point(vidfmt.display_area.right, vidfmt.display_area.bottom));
     format_.valid = true;
+    CV_LOG_ERROR(NULL, cv::format("  malong log::: file or Stream  info code:%d  %d X %d      ====ML", format_.codec,format_.width,format_.height));
     if (vidfmt.frame_rate.numerator != 0 && vidfmt.frame_rate.denominator != 0)
         format_.fps = vidfmt.frame_rate.numerator / (double)vidfmt.frame_rate.denominator;
 }

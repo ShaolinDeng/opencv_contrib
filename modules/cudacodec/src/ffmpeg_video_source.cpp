@@ -134,12 +134,16 @@ cv::cudacodec::detail::FFmpegVideoSource::FFmpegVideoSource(const String& fname)
     if (!videoio_registry::hasBackend(CAP_FFMPEG))
         CV_Error(Error::StsNotImplemented, "FFmpeg backend not found");
 
+    CV_LOG_ERROR(NULL, cv::format("  malong log::: file or Stream: (%s)====ML", fname.c_str()));
+
     cap.open(fname, CAP_FFMPEG);
     if (!cap.isOpened())
         CV_Error(Error::StsUnsupportedFormat, "Unsupported video source");
 
     if (!cap.set(CAP_PROP_FORMAT, -1))  // turn off video decoder (extract stream)
         CV_Error(Error::StsUnsupportedFormat, "Fetching of RAW video streams is not supported");
+
+    CV_LOG_ERROR(NULL, cv::format("  malong log:get  format: ====ML"));
     CV_Assert(cap.get(CAP_PROP_FORMAT) == -1);
 
     const int codecExtradataIndex = static_cast<int>(cap.get(CAP_PROP_CODEC_EXTRADATA_INDEX));
@@ -156,6 +160,7 @@ cv::cudacodec::detail::FFmpegVideoSource::FFmpegVideoSource(const String& fname)
     format_.displayArea = Rect(0, 0, format_.width, format_.height);
     format_.valid = false;
     format_.fps = cap.get(CAP_PROP_FPS);
+    CV_LOG_ERROR(NULL, cv::format("  malong log::: file or Stream  info code:%d  %d X %d   fps:%lf    ====ML", format_.codec,format_.width,format_.height,format_.fps));
     FourccToChromaFormat(pixelFormat, format_.chromaFormat, format_.nBitDepthMinus8);
 }
 
